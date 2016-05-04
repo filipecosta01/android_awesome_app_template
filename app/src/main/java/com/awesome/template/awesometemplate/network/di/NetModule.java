@@ -1,8 +1,6 @@
 package com.awesome.template.awesometemplate.network.di;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,12 +23,6 @@ public class NetModule {
 
     @Provides
     @Singleton
-    SharedPreferences provideSharedPreferences(final Application application) {
-        return PreferenceManager.getDefaultSharedPreferences(application);
-    }
-
-    @Provides
-    @Singleton
     Cache provideOkHttpCache(final Application application) {
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
         return new Cache(application.getCacheDir(), cacheSize);
@@ -38,7 +30,7 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Gson provideGson(final Application application) {
+    Gson provideGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         return gsonBuilder.create();

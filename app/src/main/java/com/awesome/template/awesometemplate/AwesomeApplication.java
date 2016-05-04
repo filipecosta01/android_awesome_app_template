@@ -6,6 +6,7 @@ import com.awesome.template.awesometemplate.di.AppComponent;
 import com.awesome.template.awesometemplate.di.AppModule;
 import com.awesome.template.awesometemplate.di.DaggerAppComponent;
 import com.awesome.template.awesometemplate.network.di.NetModule;
+import com.awesome.template.awesometemplate.storage.di.StorageModule;
 
 public class AwesomeApplication extends Application {
     private AppComponent mAppComponent;
@@ -32,6 +33,7 @@ public class AwesomeApplication extends Application {
         mAppComponent = DaggerAppComponent.builder()
             .appModule(new AppModule(this))
             .netModule(new NetModule("Bla"))
+            .storageModule(new StorageModule())
             .build();
         mAppComponent.inject(this);
     }
