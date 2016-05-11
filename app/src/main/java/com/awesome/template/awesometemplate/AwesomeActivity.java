@@ -1,17 +1,17 @@
 package com.awesome.template.awesometemplate;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.awesome.template.awesometemplate.prefs.AwesomePreferences;
 import javax.inject.Inject;
 
 public class AwesomeActivity extends AppCompatActivity {
 
-    @Inject SharedPreferences mSharedPreferences;
+    @Inject AwesomePreferences mAwesomePreferences;
     @BindView(R.id.tv_main) TextView mTextView;
 
     private Unbinder mUnbinder;
@@ -23,7 +23,7 @@ public class AwesomeActivity extends AppCompatActivity {
 
         AwesomeApplication.get().getAppComponent().inject(this);
 
-        mSharedPreferences.edit().putString("X", "Y").apply();
+        mAwesomePreferences.setExample("Y");
 
         mUnbinder = ButterKnife.bind(this);
     }
@@ -32,7 +32,7 @@ public class AwesomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        mTextView.setText(mSharedPreferences.getString("X", "Z"));
+        mTextView.setText(mAwesomePreferences.getExample());
     }
 
     @Override
